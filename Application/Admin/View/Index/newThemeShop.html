@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<!--[if IE 8]> <html lang="zh" class="ie8 no-js"> <![endif]-->
+<!--[if IE 9]> <html lang="zh" class="ie9 no-js"> <![endif]-->
+<!--[if !IE]><!-->
+<html lang="zh">
+<!--<![endif]-->
+<!-- BEGIN HEAD -->
+<head>
+	<meta charset="utf-8" />
+	<title>吃喝玩乐后台管理系统</title>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta content="width=device-width, initial-scale=1" name="viewport" />
+	<meta content="" name="description" />
+	<meta content="" name="author" />
+    <!-- BEGIN GLOBAL MANDATORY STYLES / Metronic 模板必须包含的全局 css 部分。-->
+    <!--字体图标-->
+    <link href="__PUBLIC__/metronic/global/plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet"
+          type="text/css"/>
+    <link href="__PUBLIC__/metronic/global/plugins/simple-line-icons/simple-line-icons.min.css" rel="stylesheet"
+          type="text/css"/>
+    <!--字体图标end-->
+    <link href="__PUBLIC__/metronic/global/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
+    <!-- END GLOBAL MANDATORY STYLES -->
+    <!-- BEGIN THEME GLOBAL STYLES 全局主题样式-->
+    <link href="__PUBLIC__/metronic/global/css/components.min.css" rel="stylesheet" id="style_components"
+          type="text/css"/>
+    <link href="__PUBLIC__/metronic/global/css/plugins.min.css" rel="stylesheet" type="text/css"/>
+    <!-- END THEME GLOBAL STYLES -->
+    <!-- BEGIN THEME LAYOUT STYLES 主题布局样式-->
+    <link href="__PUBLIC__/metronic/layouts/layout4/css/layout.min.css" rel="stylesheet" type="text/css"/>
+    <link href="__PUBLIC__/metronic/layouts/layout4/css/themes/light.min.css" rel="stylesheet" type="text/css"
+          id="style_color"/>
+    <link href="__PUBLIC__/metronic/layouts/layout4/css/custom.min.css" rel="stylesheet" type="text/css"/>
+    <!-- END THEME LAYOUT STYLES -->
+    <link href="__PUBLIC__/css/index-index.css" rel="stylesheet">
+    <link href="__PUBLIC__/css/common.css" rel="stylesheet" type="text/css"/>
+    <link href="__PUBLIC__/zoomify/zoomify.min.css" rel="stylesheet">
+    <link href="__PUBLIC__/css/pages.css" rel="stylesheet">
+    <!--网站小图标-->
+    <!--<link rel="shortcut icon" href="favicon.ico" />-->
+</head>
+<!-- END HEAD -->
+
+<body class="page-container-bg-solid page-header-fixed page-sidebar-closed-hide-logo">
+	<!-- BEGIN HEADER -->
+    <include file="Public/top"/>
+    <!-- END HEADER -->
+
+	<!-- BEGIN HEADER & CONTENT DIVIDER -->
+	<div class="clearfix"></div>
+	<!-- END HEADER & CONTENT DIVIDER -->
+
+	<!-- BEGIN CONTAINER -->
+	<div class="page-container">
+		<!-- BEGIN SIDEBAR -->
+        <include file="Public/left"/>
+		<!-- END SIDEBAR -->
+
+		<!-- BEGIN CONTENT -->
+            <div class="page-content-wrapper">
+                <!-- BEGIN CONTENT BODY -->
+                <div class="page-content">
+                    <!-- BEGIN PAGE HEAD-->
+                    <div class="page-head">
+                        <!-- BEGIN PAGE TITLE -->
+                        <div class="page-title">
+                            <h1>主题<b>{$showName}</b>的商店列表
+                                <a href="__URL__/themeViewer" class="btn btn-default">
+                                    <span class="glyphicon glyphicon-chevron-left"></span>
+                                </a>
+                            </h1>
+                        </div>
+                        <!-- END PAGE TITLE -->
+                    </div>
+                    <!-- END PAGE HEAD-->
+
+                    <div class="line5"></div>
+
+                    <div class="row">
+                        <div class="col-md-11 col-sm-11 col-xs-11" style="text-align: center;">
+                            <table class="table table-hover">
+                                <thead>
+                                <tr>
+                                    <td style="display:table-cell; vertical-align:middle">名称</td>
+                                    <td style="display:table-cell; vertical-align:middle">地址</td>
+                                    <td style="display:table-cell; vertical-align:middle">商店图片</td>
+                                    <td style="display:table-cell; vertical-align:middle">主题</td>
+                                    <td style="display:table-cell; vertical-align:middle">描述</td>
+                                    <td style="display:table-cell; vertical-align:middle">详情页</td>
+                                    <td style="display:table-cell; vertical-align:middle">轮播图片</td>
+                                    <td style="display:table-cell; vertical-align:middle">描述图片</td>
+                                    <td style="display:table-cell; vertical-align:middle">收藏量</td>
+                                    <td style="display:table-cell; vertical-align:middle">添加时间</td>
+                                    <!--<td style="display:table-cell; vertical-align:middle">操作</td>-->
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <volist name="shopList" id="slist" empty="暂时没有数据">
+                                    <tr>
+                                        <td style="display:table-cell; vertical-align:middle">{$slist.shop_name}</td>
+                                        <td style="display:table-cell; vertical-align:middle">{$slist.location}</td>
+                                        <td style="display:table-cell; vertical-align:middle">
+                                            <img class="zoomify" width="30px" height="30px" src="{$slist.shop_photo_url}" alt="缩略图">
+                                        </td>
+                                        <td style="display:table-cell; vertical-align:middle">
+                                            <button class="btn btn-primary view2" key="{$slist.themeStr}" data-toggle="modal" data-target="#myModal2">查看</button>
+                                        </td>
+                                        <td style="display:table-cell; vertical-align:middle">
+                                            <button class="btn btn-primary view" key="{$slist.desc}" data-toggle="modal" data-target="#myModal">查看</button>
+                                        </td>
+                                        <td style="display:table-cell; vertical-align:middle">
+                                            <button class="btn btn-primary view3" key="{$slist.detail}" data-toggle="modal" data-target="#myModal3">查看</button>
+                                        </td>
+                                        <td style="display:table-cell; vertical-align:middle; width: 150px;">
+                                            <volist name="slist.carousel_photos" id="carouselOne" empty="暂时没有数据">
+                                                &nbsp;<img class="zoomify" width="30px" height="30px" src="{$carouselOne}" alt="缩略图">
+                                            </volist>
+                                        </td>
+                                        <td style="display:table-cell; vertical-align:middle; width: 150px;">
+                                            <volist name="slist.desc_photos" id="descOne" empty="暂时没有数据">
+                                                &nbsp;<img class="zoomify" style="padding-top: 1px;" width="30px" height="30px" src="{$descOne}" alt="缩略图">
+                                            </volist>
+                                        </td>
+                                        <td style="display:table-cell; vertical-align:middle">{$slist.collection}</td>
+                                        <td style="display:table-cell; vertical-align:middle">{$slist.addtime}</td>
+                                        <!--<td style="display:table-cell; vertical-align:middle">
+                                            <a class="btn btn-primary" href="__URL__/editShop?shopId={$slist.shop_id}">修改</a>
+                                            <a class="btn btn-danger" style="margin-top: 1px;" href="javascript:dodel({$slist.shop_id})">删除</a>
+                                        </td>-->
+                                    </tr>
+                                </volist>
+                                </tbody>
+                                <tfoot>
+                                <tr>
+                                    <td colspan="10">{$page}</td>
+                                </tr>
+                                </tfoot>
+                            </table>
+                        </div>
+                        <div class="col-md-1 col-sm-1 col-xs-1"></div>
+                    </div>
+                    <!-- 模态框（Modal） -->
+                    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                                        &times;
+                                    </button>
+                                    <h4 class="modal-title" id="myModalLabel">商店描述详情</h4>
+                                </div>
+                                <div id="shopDesc" class="modal-body"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- modal-end -->
+                    <div class="modal fade" id="myModal2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel2" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                                        &times;
+                                    </button>
+                                    <h4 class="modal-title" id="myModalLabel2">商店主题</h4>
+                                </div>
+                                <div id="shopTheme" class="modal-body"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal fade" id="myModal3" tabindex="-1" role="dialog" aria-labelledby="myModalLabel3" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                                        &times;
+                                    </button>
+                                    <h4 class="modal-title" id="myModalLabel3">商店详情页</h4>
+                                </div>
+                                <div id="detailPage" class="modal-body"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- END CONTENT BODY -->
+            </div>
+            <!-- END CONTENT -->
+        </div>
+		<!-- END CONTAINER -->
+
+		<!-- BEGIN FOOTER -->
+        <div class="page-footer">
+            <div class="page-footer-inner">
+                2017 &copy; 技术支持&nbsp;&nbsp;alanlam#163.com.
+            </div>
+            <!-- back to top-->
+            <div class="scroll-to-top">
+                <i class="icon-arrow-up"></i>
+            </div>
+        </div>
+        <!-- END FOOTER -->
+    <!--[if lt IE 9]>
+    <script src="__PUBLIC__/metronic/global/plugins/respond.min.js"></script>
+    <script src="__PUBLIC__/metronic/global/plugins/excanvas.min.js"></script>
+    <![endif]-->
+    <!-- BEGIN CORE PLUGINS / Metronic 所用到的插件和资源-->
+    <script src="__PUBLIC__/js/jquery.min.js" type="text/javascript"></script>
+    <script src="__PUBLIC__/metronic/global/plugins/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
+    <script src="__PUBLIC__/metronic/global/plugins/js.cookie.min.js" type="text/javascript"></script>
+    <script src="__PUBLIC__/metronic/global/plugins/bootstrap-hover-dropdown/bootstrap-hover-dropdown.min.js"
+            type="text/javascript"></script>
+    <script src="__PUBLIC__/metronic/global/plugins/jquery-slimscroll/jquery.slimscroll.min.js"
+            type="text/javascript"></script>
+    <script src="__PUBLIC__/metronic/global/plugins/jquery.blockui.min.js" type="text/javascript"></script>
+    <!-- END CORE PLUGINS -->
+
+    <!-- BEGIN THEME GLOBAL SCRIPTS -->
+    <script src="__PUBLIC__/metronic/global/scripts/app.min.js" type="text/javascript"></script>
+    <!-- END THEME GLOBAL SCRIPTS -->
+
+    <!-- BEGIN THEME LAYOUT SCRIPTS -->
+    <script src="__PUBLIC__/metronic/layouts/layout4/scripts/layout.min.js" type="text/javascript"></script>
+    <!-- END THEME LAYOUT SCRIPTS -->
+
+    <script src="__PUBLIC__/js/index-index.js"></script>
+    <script src="__PUBLIC__/zoomify/zoomify.min.js"></script>
+    <script type="text/javascript">
+        $(function(){
+            $('img.zoomify').zoomify();
+            $('button.btn.btn-primary.view').click(function(){
+                var desc=$(this).attr('key');
+//                alert(desc);
+                $('#shopDesc').html('');
+                $('#shopDesc').append('<p>'+desc+'</p>');
+            });
+            $('button.btn.btn-primary.view2').click(function(){
+                var themeStr=$(this).attr('key');
+                $('#shopTheme').html('');
+                $('#shopTheme').append('<p>'+themeStr+'</p>');
+            });
+            $('button.btn.btn-primary.view3').click(function(){
+                var detail=$(this).attr('key');
+                $('#detailPage').html('');
+                $('#detailPage').append("<a href='"+detail+"' target='_blank'>"+detail+"</a>");
+            });
+        });
+    </script>
+</body>
+</html>

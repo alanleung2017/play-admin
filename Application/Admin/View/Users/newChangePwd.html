@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<!--[if IE 8]> <html lang="zh" class="ie8 no-js"> <![endif]-->
+<!--[if IE 9]> <html lang="zh" class="ie9 no-js"> <![endif]-->
+<!--[if !IE]><!-->
+<html lang="zh">
+<!--<![endif]-->
+<!-- BEGIN HEAD -->
+<head>
+	<meta charset="utf-8" />
+	<title>吃喝玩乐后台管理系统</title>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta content="width=device-width, initial-scale=1" name="viewport" />
+	<meta content="" name="description" />
+	<meta content="" name="author" />
+    <!-- BEGIN GLOBAL MANDATORY STYLES / Metronic 模板必须包含的全局 css 部分。-->
+    <!--字体图标-->
+    <link href="__PUBLIC__/metronic/global/plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet"
+          type="text/css"/>
+    <link href="__PUBLIC__/metronic/global/plugins/simple-line-icons/simple-line-icons.min.css" rel="stylesheet"
+          type="text/css"/>
+    <!--字体图标end-->
+    <link href="__PUBLIC__/metronic/global/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
+    <!-- END GLOBAL MANDATORY STYLES -->
+    <!-- BEGIN THEME GLOBAL STYLES 全局主题样式-->
+    <link href="__PUBLIC__/metronic/global/css/components.min.css" rel="stylesheet" id="style_components"
+          type="text/css"/>
+    <link href="__PUBLIC__/metronic/global/css/plugins.min.css" rel="stylesheet" type="text/css"/>
+    <!-- END THEME GLOBAL STYLES -->
+    <!-- BEGIN THEME LAYOUT STYLES 主题布局样式-->
+    <link href="__PUBLIC__/metronic/layouts/layout4/css/layout.min.css" rel="stylesheet" type="text/css"/>
+    <link href="__PUBLIC__/metronic/layouts/layout4/css/themes/light.min.css" rel="stylesheet" type="text/css"
+          id="style_color"/>
+    <link href="__PUBLIC__/metronic/layouts/layout4/css/custom.min.css" rel="stylesheet" type="text/css"/>
+    <!-- END THEME LAYOUT STYLES -->
+    <link href="__PUBLIC__/css/index-index.css" rel="stylesheet">
+    <link href="__PUBLIC__/css/common.css" rel="stylesheet" type="text/css"/>
+    <!--网站小图标-->
+    <!--<link rel="shortcut icon" href="favicon.ico" />-->
+</head>
+<!-- END HEAD -->
+
+<body class="page-container-bg-solid page-header-fixed page-sidebar-closed-hide-logo">
+	<!-- BEGIN HEADER -->
+    <include file="Public/top"/>
+    <!-- END HEADER -->
+
+	<!-- BEGIN HEADER & CONTENT DIVIDER -->
+	<div class="clearfix"></div>
+	<!-- END HEADER & CONTENT DIVIDER -->
+
+	<!-- BEGIN CONTAINER -->
+	<div class="page-container">
+		<!-- BEGIN SIDEBAR -->
+        <include file="Public/left"/>
+		<!-- END SIDEBAR -->
+
+		<!-- BEGIN CONTENT -->
+            <div class="page-content-wrapper">
+                <!-- BEGIN CONTENT BODY -->
+                <div class="page-content">
+                    <!-- BEGIN PAGE HEAD-->
+                    <div class="page-head">
+                        <!-- BEGIN PAGE TITLE -->
+                        <div class="page-title">
+                            <h1>修改后台管理员密码</h1>
+                        </div>
+                        <!-- END PAGE TITLE -->
+                    </div>
+                    <!-- END PAGE HEAD-->
+
+                    <div class="line5"></div>
+
+                    <div class="row">
+                        <div class="col-md-4 col-sm-4 col-xs-4">
+                            <form role="form" id="pwdForm" method="post" action="__URL__/changePwd">
+                                <div class="form-group">
+                                    <label for="newPwd">&nbsp;&nbsp;&nbsp;&nbsp;新密码：</label>
+                                    <div class="input-text-fix">
+                                        <input id="newPwd" type="password" name="newPwd" class="form-control" placeholder="输入密码">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="newPwd2">再次输入：</label>
+                                    <div class="input-text-fix">
+                                        <input id="newPwd2" type="password" name="newPwd2" class="form-control" placeholder="输入密码">
+                                    </div>
+                                </div>
+                                <button type="submit" class="btn btn-primary">提交</button>
+                                <button type="reset" class="btn btn-danger">重置</button>
+                            </form>
+                        </div>
+                        <div class="col-md-8 col-sm-8 col-xs-8"></div>
+                    </div>
+                </div>
+                <!-- END CONTENT BODY -->
+            </div>
+            <!-- END CONTENT -->
+        </div>
+		<!-- END CONTAINER -->
+
+		<!-- BEGIN FOOTER -->
+        <div class="page-footer">
+            <div class="page-footer-inner">
+                2017 &copy; 技术支持&nbsp;&nbsp;alanlam#163.com.
+            </div>
+            <!-- back to top-->
+            <div class="scroll-to-top">
+                <i class="icon-arrow-up"></i>
+            </div>
+        </div>
+        <!-- END FOOTER -->
+    <!--[if lt IE 9]>
+    <script src="__PUBLIC__/metronic/global/plugins/respond.min.js"></script>
+    <script src="__PUBLIC__/metronic/global/plugins/excanvas.min.js"></script>
+    <![endif]-->
+    <!-- BEGIN CORE PLUGINS / Metronic 所用到的插件和资源-->
+    <script src="__PUBLIC__/js/jquery.min.js" type="text/javascript"></script>
+    <script src="__PUBLIC__/metronic/global/plugins/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
+    <script src="__PUBLIC__/metronic/global/plugins/js.cookie.min.js" type="text/javascript"></script>
+    <script src="__PUBLIC__/metronic/global/plugins/bootstrap-hover-dropdown/bootstrap-hover-dropdown.min.js"
+            type="text/javascript"></script>
+    <script src="__PUBLIC__/metronic/global/plugins/jquery-slimscroll/jquery.slimscroll.min.js"
+            type="text/javascript"></script>
+    <script src="__PUBLIC__/metronic/global/plugins/jquery.blockui.min.js" type="text/javascript"></script>
+    <!-- END CORE PLUGINS -->
+
+    <!-- BEGIN THEME GLOBAL SCRIPTS -->
+    <script src="__PUBLIC__/metronic/global/scripts/app.min.js" type="text/javascript"></script>
+    <!-- END THEME GLOBAL SCRIPTS -->
+
+    <!-- BEGIN THEME LAYOUT SCRIPTS -->
+    <script src="__PUBLIC__/metronic/layouts/layout4/scripts/layout.min.js" type="text/javascript"></script>
+    <!-- END THEME LAYOUT SCRIPTS -->
+</body>
+</html>

@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>添加app数据</title>
+    <link href="__PUBLIC__/uploadify/uploadify.css" rel="stylesheet"/>
+    <script type="text/javascript" src="__PUBLIC__/js/jquery.min.js"></script>
+    <script type="text/javascript" src="__PUBLIC__/uploadify/jquery.uploadify-3.1.js"></script>
+    <script type="text/javascript">
+        var url="__URL__";
+        var public="__PUBLIC__";
+    </script>
+    <script type="text/javascript" src="__PUBLIC__/js/jquery.validate.js"></script>
+    <script type="text/javascript" src="__PUBLIC__/js/addData.js"></script>
+    <style>
+        .uploadify{
+            display: inline-block;
+        }
+    </style>
+    <script type="text/javascript">
+        $(function(){
+            var uploadify_onSelectError = function(file, errorCode, errorMsg) {
+                var msgText = "上传失败\n";
+                switch (errorCode) {
+                    case SWFUpload.QUEUE_ERROR.QUEUE_LIMIT_EXCEEDED:
+                        //this.queueData.errorMsg = "每次最多上传 " + this.settings.queueSizeLimit + "个文件";
+                        msgText += "每次最多上传 " + this.settings.queueSizeLimit + "个文件";
+                        break;
+                    case SWFUpload.QUEUE_ERROR.FILE_EXCEEDS_SIZE_LIMIT:
+                        msgText += "文件大小超过限制( " + this.settings.fileSizeLimit + " )";
+                        break;
+                    case SWFUpload.QUEUE_ERROR.ZERO_BYTE_FILE:
+                        msgText += "文件大小为0";
+                        break;
+                    case SWFUpload.QUEUE_ERROR.INVALID_FILETYPE:
+                        msgText += "文件格式不正确，仅限 " + this.settings.fileTypeExts;
+                        break;
+                    default:
+                        msgText += "错误代码：" + errorCode + "\n" + errorMsg;
+                }
+                alert(msgText);
+            };
+
+            var uploadify_onUploadError = function(file, errorCode, errorMsg, errorString) {
+                // 手工取消不弹出提示
+                if (errorCode == SWFUpload.UPLOAD_ERROR.FILE_CANCELLED
+                        || errorCode == SWFUpload.UPLOAD_ERROR.UPLOAD_STOPPED) {
+                    return;
+                }
+                var msgText = "上传失败\n";
+                switch (errorCode) {
+                    case SWFUpload.UPLOAD_ERROR.HTTP_ERROR:
+                        msgText += "HTTP 错误\n" + errorMsg;
+                        break;
+                    case SWFUpload.UPLOAD_ERROR.MISSING_UPLOAD_URL:
+                        msgText += "上传文件丢失，请重新上传";
+                        break;
+                    case SWFUpload.UPLOAD_ERROR.IO_ERROR:
+                        msgText += "IO错误";
+                        break;
+                    case SWFUpload.UPLOAD_ERROR.SECURITY_ERROR:
+                        msgText += "安全性错误\n" + errorMsg;
+                        break;
+                    case SWFUpload.UPLOAD_ERROR.UPLOAD_LIMIT_EXCEEDED:
+                        msgText += "每次最多上传 " + this.settings.uploadLimit + "个";
+                        break;
+                    case SWFUpload.UPLOAD_ERROR.UPLOAD_FAILED:
+                        msgText += errorMsg;
+                        break;
+                    case SWFUpload.UPLOAD_ERROR.SPECIFIED_FILE_ID_NOT_FOUND:
+                        msgText += "找不到指定文件，请重新操作";
+                        break;
+                    case SWFUpload.UPLOAD_ERROR.FILE_VALIDATION_FAILED:
+                        msgText += "参数错误";
+                        break;
+                    default:
+                        msgText += "文件:" + file.name + "\n错误码:" + errorCode + "\n"
+                                + errorMsg + "\n" + errorString;
+                }
+                alert(msgText);
+            };
+
+            $('#file_upload').uploadify({
+                'swf'      : '__PUBLIC__/uploadify/uploadify.swf',
+                'uploader' : '__URL__/uploadMany',
+                'buttonText' : '选择图片',
+                'overrideEvents' : ['onUploadError','onSelectError'],
+                'onUploadSuccess' : function(file, data, response) {
+                    $('#commentForm').append(
+                            '<input type="hidden" name="comment_photo_ids[]" value="'+data+'"/>');
+                },
+                'onUploadError' : uploadify_onUploadError,
+                'onSelectError' : uploadify_onSelectError
+            });
+
+            $('#carousel_photo').uploadify({
+                'swf'      : '__PUBLIC__/uploadify/uploadify.swf',
+                'uploader' : '__URL__/uploadMany',
+                'buttonText' : '选择图片',
+                'queueSizeLimit' : 3,
+                'uploadLimit' : 3, //允许上传文件个数
+                'overrideEvents' : ['onUploadError','onSelectError'],
+                'onUploadSuccess' : function(file, data, response) {
+//                    alert('ok');
+                    $('#shopForm').append(
+                            '<input type="hidden" name="carousel_photo_url_ids[]" value="'+data+'"/>');
+                },
+                'onUploadError' : uploadify_onUploadError,
+                'onSelectError' : uploadify_onSelectError
+            });
+
+            $('#desc_photo').uploadify({
+                'swf'      : '__PUBLIC__/uploadify/uploadify.swf',
+                'uploader' : '__URL__/uploadMany',
+                'buttonText' : '选择图片',
+                'overrideEvents' : ['onUploadError','onSelectError'],
+                'onUploadSuccess' : function(file, data, response) {
+                    $('#shopForm').append(
+                            '<input type="hidden" name="desc_photo_url_ids[]" value="'+data+'"/>');
+                },
+                'onUploadError' : uploadify_onUploadError,
+                'onSelectError' : uploadify_onSelectError
+            });
+        });
+    </script>
+</head>
+<body>
+    <p><b>1. 添加用户数据</b></p>
+    <form id="userForm" method="post" action="__URL__/user" enctype="multipart/form-data">
+        用户名：<input id="username" type="text" name="username"/>&nbsp;&nbsp;<span id="userErrMsg"></span><br/><br/>
+        密码：<input type="password" name="password"/><br/><br/>
+        用户头像：<input type="file" name="user_photo_url"/><br/><br/>
+        个性签名：<input type="text" name="signature"/><br/><br/>
+        昵称：<input type="text" name="nick_name"/><br/><br/>
+        所属人群：<input type="text" name="person_group"/><br/><br/>
+        手机号码:<input type="text" name="phone"/><br/><br/>
+        性别：<input type="radio" name="sex" value="男">男
+        <input type="radio" name="sex" value="女">女<br/><br/>
+        <input type="submit" value="提交" name="submit" />
+        <input type="reset" value="重置" name="reset" />
+    </form>
+
+    <div style="height: 10px;"></div>
+
+    <p><b>2. 添加主题数据</b></p>
+    <form id="themeForm" method="post" action="__URL__/theme" enctype="multipart/form-data">
+        主题标题：<input id="theme_title" type="text" name="theme_title"/>&nbsp;&nbsp;<span id="themeErrMsg"></span><br/><br/>
+        主题简介：<input type="text" name="desc"/><br/><br/>
+        主题类型：<input type="text" name="theme_type"/><br/><br/>
+        主题图片：<input type="file" name="theme_photo_url"/><br/><br/>
+        <input type="submit" value="提交" name="submit" />
+        <input type="reset" value="重置" name="reset" />
+    </form>
+
+    <div style="height: 10px;"></div>
+
+    <p><b>3. 添加单品数据</b></p>
+    <form method="post" action="__URL__/item" enctype="multipart/form-data">
+        特色店名称：<input type="text" name="shop_name"/><br/><br/>
+        图片：<input type="file" name="item_photo_url"/><br/><br/>
+        名字：<input type="text" name="item_name"/><br/><br/>
+        简介：<input type="text" name="desc"/><br/><br/>
+        价格：<input type="text" name="price"/><br/><br/>
+        <input type="submit" value="提交" name="submit" />
+        <input type="reset" value="重置" name="reset" />
+    </form>
+
+    <div style="height: 10px;"></div>
+
+    <p><b>4. 添加特色店数据</b></p>
+    <form id="shopForm" method="post" action="__URL__/shop" enctype="multipart/form-data">
+        特色店名称：<input type="text" name="shop_name"/><br/><br/>
+        封面图片：<input type="file" name="shop_photo_url"/><br/><br/>
+        3张轮播图片：<input id="carousel_photo" name="carousel_photo" type="file" multiple="true"/>
+        多张描述图片：<input id="desc_photo" name="desc_photo" type="file" multiple="true"/>
+        地点：<input type="text" name="location"/><br/><br/>
+        简介：<input type="text" name="desc"/><br/><br/>
+        主题：<select name="theme[]"  size="3"  multiple>
+                  <volist name="Alltheme" id="Alltheme">
+                      <option value="{$Alltheme.theme_id}">{$Alltheme.theme_title}</option>
+                  </volist>
+              </select>(按ctrl可以多选)<br/><br/>
+        店铺网址：<input type="text" name="detail"/>(带http://比如http://www.baidu.com)<br/><br/>
+        <input type="submit" value="提交" name="submit" />
+        <input type="reset" value="重置" name="reset" />
+    </form>
+
+    <div style="height: 10px;"></div>
+
+    <p><b>5. 添加评论数据</b></p>
+    <form id="commentForm" method="post" action="__URL__/comment" enctype="multipart/form-data">
+        评论内容：<input type="text" name="comment_content"/><br/><br/>
+        评论人用户名：
+        <select name="comment_user_id"/>
+            <volist name="users" id="user">
+                <option value="{$user.user_id}">{$user.user_account}</option>
+            </volist>
+        </select><br/><br/>
+        评论所属特色店：
+        <select name="comment_shop_id"/>
+            <volist name="shops" id="shop">
+                <option value="{$shop.shop_id}">{$shop.shop_name}</option>
+            </volist>
+        </select><br/><br/>
+        5张评论图片：<input id="file_upload" name="file_upload" type="file" multiple="true"/>
+        <input type="submit" value="提交" name="submit" />
+        <input type="reset" value="重置" name="reset" />
+    </form>
+
+</body>
+</html>

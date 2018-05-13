@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>吃喝玩乐后台管理系统</title>
+    <link href="http://apps.bdimg.com/libs/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet">
+    <link href="__PUBLIC__/css/index-index.css" rel="stylesheet">
+    <link href="__PUBLIC__/zoomify/zoomify.min.css" rel="stylesheet">
+    <link href="__PUBLIC__/css/pages.css" rel="stylesheet">
+    <script src="http://apps.bdimg.com/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script src="http://apps.bdimg.com/libs/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+    <script src="__PUBLIC__/js/index-index.js"></script>
+    <script src="__PUBLIC__/zoomify/zoomify.min.js"></script>
+    <script type="text/javascript">
+        $(function(){
+            $('img.zoomify').zoomify();
+        });
+    </script>
+</head>
+<body>
+<!-- 导航条 -->
+<div><include file="Public/navi-top"/></div>
+<!-- 导航条end -->
+<div class="line10"></div>
+<div class="container">
+    <!-- 后面内容区 -->
+    <div class="row row2">
+
+        <div class="col-md-2 col-sm-2 col-xs-2 left">
+            <div class="list-group">
+                <a href="__APP__/Admin/Comment/commentViewer" class="list-group-item active">查看评论</a>
+            </div>
+        </div>
+
+        <div class="col-md-10 col-sm-10 col-xs-10 right">
+            <div class="row">
+                <div class="col-md-12 col-sm-12 col-xs-12" style="text-align: center;">
+                    <form style="padding-right: 30%;" method="post" action="__URL__/commentViewer">
+                        <div class="input-group">
+                            <input type="text" class="form-control" name="searchUserName" style="width:50%;margin-right:20px;"value="{$searchUserName}" placeholder="输入用户名">
+                            <input type="text" class="form-control" name="searchShopName" style="width:46%;" value="{$searchShop}" placeholder="输入特色店店名">
+                                <span class="input-group-btn">
+                                    <button class="btn btn-primary" type="submit">搜索</button>
+                                </span>
+                        </div>
+                    </form>
+                    <table class="table table-hover">
+                        <thead>
+                        <tr>
+                            <td style="display:table-cell; vertical-align:middle">评论内容</td>
+                            <td style="display:table-cell; vertical-align:middle">评论用户</td>
+                            <td style="display:table-cell; vertical-align:middle">所在特色店</td>
+                            <td style="display:table-cell; vertical-align:middle">图片</td>
+                            <td style="display:table-cell; vertical-align:middle">添加时间</td>
+                            <td style="display:table-cell; vertical-align:middle">操作</td>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <volist name="commentList" id="clist" empty="暂时没有数据">
+                            <tr>
+                                <td style="display:table-cell; vertical-align:middle">{$clist.comment_content}</td>
+                                <td style="display:table-cell; vertical-align:middle">{$clist.nick_name}</td>
+                                <td style="display:table-cell; vertical-align:middle">{$clist.shop_name}</td>
+                                <td style="display:table-cell; vertical-align:middle">
+                                    <foreach name="clist[comment_photo_ids]"  item="photo" key="k" >
+                                        <img class="zoomify" width="30px" height="30px" src="{$photo}" alt="缩略图">　
+                                    </foreach>
+                                </td>
+                                <td style="display:table-cell; vertical-align:middle">{$clist.addtime}</td>
+                                <td style="display:table-cell; vertical-align:middle">
+                                    <a class="btn btn-danger" href="javascript:dodel({$clist.comment_id})">删除</a>
+                                </td>
+                            </tr>
+                        </volist>
+                        </tbody>
+                        <tfoot>
+                        <tr>
+                            <td colspan="9">{$page}</td>
+                        </tr>
+                        </tfoot>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- 后面内容区end -->
+</div>
+<script type="text/javascript">
+    function dodel(cid){
+        if(confirm("确定要删除吗？")){
+            window.location='__URL__/delComment?commentId=' + cid;
+        }
+    }
+</script>
+</body>
+</html>

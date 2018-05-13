@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>吃喝玩乐后台管理系统</title>
+    <link href="http://apps.bdimg.com/libs/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet">
+    <link href="__PUBLIC__/css/index-index.css" rel="stylesheet">
+    <script src="http://apps.bdimg.com/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script src="http://apps.bdimg.com/libs/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+</head>
+<body>
+<!-- 导航条 -->
+<div><include file="Public/navi-top"/></div>
+<!-- 导航条end -->
+<div class="line10"></div>
+<div class="container">
+    <!-- 后面内容区 -->
+    <div class="row">
+        <div class="col-md-4 col-sm-4 col-xs-4"></div>
+        <div class="col-md-4 col-sm-4 col-xs-4" style="text-align: center;">
+            <form role="form" id="pwdForm" method="post" action="__URL__/changePwd">
+                <div class="form-group">
+                    <label for="newPwd">&nbsp;&nbsp;&nbsp;&nbsp;新密码：</label>
+                    <div class="input-text-fix">
+                        <input id="newPwd" type="password" name="newPwd" class="form-control" placeholder="输入密码">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="newPwd2">再次输入：</label>
+                    <div class="input-text-fix">
+                        <input id="newPwd2" type="password" name="newPwd2" class="form-control" placeholder="输入密码">
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-primary">提交</button>
+                <button type="reset" class="btn btn-danger">重置</button>
+            </form>
+        </div>
+        <div class="col-md-4 col-sm-4 col-xs-4"></div>
+    <!-- 后面内容区end -->
+    </div>
+</div>
+</body>
+</html>

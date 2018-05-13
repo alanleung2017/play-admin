@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>吃喝玩乐后台管理系统</title>
+    <link href="http://apps.bdimg.com/libs/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet">
+    <link href="__PUBLIC__/css/index-index.css" rel="stylesheet">
+    <link href="__PUBLIC__/zoomify/zoomify.min.css" rel="stylesheet">
+    <link href="__PUBLIC__/css/pages.css" rel="stylesheet">
+    <script src="http://apps.bdimg.com/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script src="http://apps.bdimg.com/libs/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+    <script src="__PUBLIC__/js/index-index.js"></script>
+    <script src="__PUBLIC__/zoomify/zoomify.min.js"></script>
+    <script type="text/javascript">
+        $(function(){
+            $('img.zoomify').zoomify();
+            $('button.btn.btn-primary.view').click(function(){
+                var desc=$(this).attr('key');
+//                alert(desc);
+                $('#shopDesc').html('');
+                $('#shopDesc').append('<p>'+desc+'</p>');
+            });
+            $('button.btn.btn-primary.view2').click(function(){
+                var themeStr=$(this).attr('key');
+                $('#shopTheme').html('');
+                $('#shopTheme').append('<p>'+themeStr+'</p>');
+            });
+            $('button.btn.btn-primary.view3').click(function(){
+                var detail=$(this).attr('key');
+                $('#detailPage').html('');
+                $('#detailPage').append("<a href='"+detail+"' target='_blank'>"+detail+"</a>");
+            });
+        });
+    </script>
+</head>
+<body>
+<!-- 导航条 -->
+<div><include file="Public/navi-top"/></div>
+<!-- 导航条end -->
+<div class="line10"></div>
+<div class="container">
+    <!-- 后面内容区 -->
+    <div class="row row2">
+
+        <div class="col-md-2 col-sm-2 col-xs-2 left">
+            <div class="list-group">
+                <a href="__APP__/admin/index/index" class="list-group-item">添加主题</a>
+                <a href="__APP__/admin/index/themeViewer" class="list-group-item">查看主题</a>
+            </div>
+        </div>
+
+        <div class="col-md-10 col-sm-10 col-xs-10 right">
+            <div class="row">
+                <p style="padding-left: 2%;">主题<b>{$showName}</b>下的商店列表</p>
+                <div class="col-md-12 col-sm-12 col-xs-12" style="text-align: center;">
+
+                    <table class="table table-hover">
+                        <thead>
+                        <tr>
+                            <td style="display:table-cell; vertical-align:middle">名称</td>
+                            <td style="display:table-cell; vertical-align:middle">地址</td>
+                            <td style="display:table-cell; vertical-align:middle">商店图片</td>
+                            <td style="display:table-cell; vertical-align:middle">主题</td>
+                            <td style="display:table-cell; vertical-align:middle">描述</td>
+                            <td style="display:table-cell; vertical-align:middle">详情页</td>
+                            <td style="display:table-cell; vertical-align:middle">轮播图片</td>
+                            <td style="display:table-cell; vertical-align:middle">描述图片</td>
+                            <td style="display:table-cell; vertical-align:middle">收藏量</td>
+                            <td style="display:table-cell; vertical-align:middle">添加时间</td>
+                            <!--<td style="display:table-cell; vertical-align:middle">操作</td>-->
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <volist name="shopList" id="slist" empty="暂时没有数据">
+                            <tr>
+                                <td style="display:table-cell; vertical-align:middle">{$slist.shop_name}</td>
+                                <td style="display:table-cell; vertical-align:middle">{$slist.location}</td>
+                                <td style="display:table-cell; vertical-align:middle">
+                                    <img class="zoomify" width="30px" height="30px" src="{$slist.shop_photo_url}" alt="缩略图">
+                                </td>
+                                <td style="display:table-cell; vertical-align:middle">
+                                    <button class="btn btn-primary view2" key="{$slist.themeStr}" data-toggle="modal" data-target="#myModal2">查看</button>
+                                </td>
+                                <td style="display:table-cell; vertical-align:middle">
+                                    <button class="btn btn-primary view" key="{$slist.desc}" data-toggle="modal" data-target="#myModal">查看</button>
+                                </td>
+                                <td style="display:table-cell; vertical-align:middle">
+                                    <button class="btn btn-primary view3" key="{$slist.detail}" data-toggle="modal" data-target="#myModal3">查看</button>
+                                </td>
+                                <td style="display:table-cell; vertical-align:middle; width: 150px;">
+                                    <volist name="slist.carousel_photos" id="carouselOne" empty="暂时没有数据">
+                                        &nbsp;<img class="zoomify" width="30px" height="30px" src="{$carouselOne}" alt="缩略图">
+                                    </volist>
+                                </td>
+                                <td style="display:table-cell; vertical-align:middle; width: 150px;">
+                                    <volist name="slist.desc_photos" id="descOne" empty="暂时没有数据">
+                                        &nbsp;<img class="zoomify" style="padding-top: 1px;" width="30px" height="30px" src="{$descOne}" alt="缩略图">
+                                    </volist>
+                                </td>
+                                <td style="display:table-cell; vertical-align:middle">{$slist.collection}</td>
+                                <td style="display:table-cell; vertical-align:middle">{$slist.addtime}</td>
+                                <!--<td style="display:table-cell; vertical-align:middle">
+                                    <a class="btn btn-primary" href="__URL__/editShop?shopId={$slist.shop_id}">修改</a>
+                                    <a class="btn btn-danger" style="margin-top: 1px;" href="javascript:dodel({$slist.shop_id})">删除</a>
+                                </td>-->
+                            </tr>
+                        </volist>
+                        </tbody>
+                        <tfoot>
+                        <tr>
+                            <td colspan="10">{$page}</td>
+                        </tr>
+                        </tfoot>
+                    </table>
+                </div>
+            </div>
+            <!-- 模态框（Modal） -->
+            <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                                &times;
+                            </button>
+                            <h4 class="modal-title" id="myModalLabel">商店描述详情</h4>
+                        </div>
+                        <div id="shopDesc" class="modal-body"></div>
+                    </div>
+                </div>
+            </div>
+            <!-- modal-end -->
+            <div class="modal fade" id="myModal2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel2" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                                &times;
+                            </button>
+                            <h4 class="modal-title" id="myModalLabel2">商店主题</h4>
+                        </div>
+                        <div id="shopTheme" class="modal-body"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal fade" id="myModal3" tabindex="-1" role="dialog" aria-labelledby="myModalLabel3" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                                &times;
+                            </button>
+                            <h4 class="modal-title" id="myModalLabel3">商店详情页</h4>
+                        </div>
+                        <div id="detailPage" class="modal-body"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- 后面内容区end -->
+</div>
+</body>
+</html>
